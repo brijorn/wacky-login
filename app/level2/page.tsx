@@ -10,10 +10,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { RealButton } from "@/components/ui/realbutton";
 
-export default function Level2() {
+function Level2Content() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const savedUsername = searchParams.get('username') || "Guest";
@@ -178,4 +178,12 @@ export default function Level2() {
       <ToastContainer aria-label={"toast"} position="bottom-center" theme="colored" />
     </div>
   )
+}
+
+export default function Level2() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Level2Content />
+    </Suspense>
+  );
 }
